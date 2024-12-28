@@ -65,10 +65,8 @@ const pickupObjects = (event) => {
     mouse.y = -((event.clientY - offsetTop) / scH) * 2 + 1;
     let raycaster = new THREE.Raycaster();
     raycaster.setFromCamera(mouse, camera);
-    console.log("mouse:", mouse, scH, scW, offsetLeft, offsetTop);
 
     let intersects = raycaster.intersectObjects(scene.children);
-    console.log("intersects:", intersects);
     if (intersects.length > 0) {
       if (
         intersects[0].object.name.includes("Door") ||
@@ -291,7 +289,6 @@ watch(
   () => loading.value,
   (newVal) => {
     if (!newVal) {
-      console.log("Model loaded");
       // Once the model is loaded, start handling window resizing and clicks
       window.addEventListener("resize", handleWindowResize);
       window.addEventListener("click", pickupObjects);
