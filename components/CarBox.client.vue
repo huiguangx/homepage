@@ -190,10 +190,10 @@ onMounted(() => {
       models.forEach((model) => {
         model.traverse((child) => {
           if (child.isMesh) {
-              if (child.name === "Trunk_24")
+            if (child.name === "Trunk_24") {
               child.material.color.set(0xffc03f);
             }
-              if (child.name.includes("Tires")) {
+            if (child.name.includes("Tires")) {
               child.material.color.set(0x000000);
             }
           }
