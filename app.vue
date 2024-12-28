@@ -55,14 +55,14 @@
         </svg>
       </button>
     </nav>
+    <div class="car-container">
+      <ClientOnly placeholder="loading..."
+        ><CarBox class="car-box"></CarBox
+      ></ClientOnly>
+    </div>
     <main class="main">
       <div class="greeting">
         Hello, I'm a Front-end developer based in ShenZhen, China!
-      </div>
-      <div>
-        <ClientOnly placeholder="loading..."
-          ><CarBox class="car-box"></CarBox
-        ></ClientOnly>
       </div>
       <div class="profile">
         <div class="profile-content">
@@ -99,14 +99,10 @@
       </div>
     </main>
   </div>
-  <Test></Test>
 </template>
 
 <script setup>
-import * as THREE from "three"; // 导入 THREE.js
-// import { TWEEN } from "three/examples/jsm/libs/tween.module.min.js";
 const isDark = ref(false);
-const canvasContainer = ref(null);
 
 const toggleTheme = () => {
   isDark.value = !isDark.value;
@@ -120,6 +116,7 @@ const toggleTheme = () => {
   color: #1a1a1a;
   transition: all 0.3s ease;
   position: relative;
+  width: 100%;
 }
 
 .app.dark {
@@ -179,20 +176,6 @@ const toggleTheme = () => {
   margin: 0 auto;
   padding: 2rem;
   padding: relative;
-}
-
-.car-container {
-  text-align: center;
-  margin: 2rem 0;
-  width: 100%;
-  max-width: 600px;
-  height: 600px;
-  position: absolute;
-  background: transparent; /* 背景透明 */
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
 }
 
 .car-image {
@@ -332,14 +315,20 @@ h1 {
   z-index: 200;
   margin: 2rem;
 }
+.car-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  height: 100%;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+}
 .car-box {
   width: 100%;
-  max-width: 1000px;
   height: 100%;
-  position: absolute;
   z-index: 100;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 </style>

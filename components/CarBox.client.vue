@@ -6,7 +6,7 @@
 import { ref, onMounted, onBeforeUnmount, onUpdated, watch } from "vue";
 import * as THREE from "three";
 import { TWEEN } from "three/examples/jsm/libs/tween.module.min.js";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { loadGLTFModel } from "../lib/model";
 
 const GLBs = [
@@ -61,11 +61,14 @@ const pickupObjects = (event) => {
     let mouse = new THREE.Vector2();
     mouse.x = ((event.clientX - offsetLeft) / scW) * 2 - 1;
     mouse.y = -((event.clientY - offsetTop) / scH) * 2 + 1;
+    mouse.x = ((event.clientX - offsetLeft) / scW) * 2 - 1;
+    mouse.y = -((event.clientY - offsetTop) / scH) * 2 + 1;
     let raycaster = new THREE.Raycaster();
     raycaster.setFromCamera(mouse, camera);
-    console.log("mouse:", mouse);
+    console.log("mouse:", mouse, scH, scW, offsetLeft, offsetTop);
 
     let intersects = raycaster.intersectObjects(scene.children);
+    console.log("intersects:", intersects);
     if (intersects.length > 0) {
       if (
         intersects[0].object.name.includes("Door") ||
@@ -217,7 +220,7 @@ onMounted(() => {
 
     controls = new OrbitControls(camera, renderer.domElement);
     controls.minDistance = 4; // 最小缩放距离
-    controls.maxDistance = 25; // 最大缩放距离
+    controls.maxDistance = 20; // 最大缩放距离
     controls.autoRotate = true;
     controls.target = target;
 
