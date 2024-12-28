@@ -190,16 +190,11 @@ onMounted(() => {
       models.forEach((model) => {
         model.traverse((child) => {
           if (child.isMesh) {
-            // 设置车身颜色为红色（你可以根据需求设置其他颜色）
-            console.log(child, "孩子名字");
-            if (child.name === "Trunk_24") {
-              // 设置车门颜色为海军蓝（优雅且时尚）
-              console.log(child, "孩子名字");
-              child.material.color.set(0xffc03f); // 海军蓝
+              if (child.name === "Trunk_24")
+              child.material.color.set(0xffc03f);
             }
-            // 你可以根据不同部件名字设置不同颜色
-            if (child.name.includes("Tires")) {
-              child.material.color.set(0x000000); // 轮胎颜色为黑色
+              if (child.name.includes("Tires")) {
+              child.material.color.set(0x000000);
             }
           }
         });
