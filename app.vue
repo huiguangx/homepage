@@ -93,7 +93,12 @@
           </a>
         </div>
 
-        <div class="avatar-container">
+        <div
+          class="avatar-container"
+          @mousedown="startLongPress"
+          @mouseup="cancelLongPress"
+          @mouseleave="cancelLongPress"
+        >
           <img src="./public/images/avarar.jpg" alt="加载失败" />
         </div>
       </div>
@@ -107,9 +112,37 @@ const isDark = ref(false);
 const toggleTheme = () => {
   isDark.value = !isDark.value;
 };
+let longPressTimeout;
+
+const startLongPress = () => {
+  longPressTimeout = setTimeout(() => {
+    document.querySelector(".avatar-container").classList.add("glow");
+  }, 3000);
+};
+
+const cancelLongPress = () => {
+  clearTimeout(longPressTimeout);
+  document.querySelector(".avatar-container").classList.remove("glow");
+};
 </script>
 
 <style scoped>
+@keyframes glowAnimation {
+  0%,
+  100% {
+    box-shadow: 0 0 10px 5px rgb(252, 240, 111),
+      0 0 20px 10px rgb(251, 247, 105), 0 0 30px 15px yellow,
+      0 0 40px 20px rgb(188, 247, 78), 0 0 50px 25px rgb(212, 247, 39),
+      0 0 60px 30px rgb(229, 254, 87), 0 0 70px 35px rgb(250, 245, 87);
+  }
+  50% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+.avatar-container.glow {
+  animation: glowAnimation 1s infinite;
+}
 .app {
   min-height: 100vh;
   background-color: #f4ece4;
