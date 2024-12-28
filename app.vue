@@ -1,8 +1,5 @@
 <template>
   <div :class="['app', { dark: isDark }]">
-    <ClientOnly placeholder="loading..."
-      ><CarBox class="car-box"></CarBox
-    ></ClientOnly>
     <nav class="navbar">
       <div class="nav-left">
         <a href="#" class="nav-link">
@@ -62,7 +59,11 @@
       <div class="greeting">
         Hello, I'm a Front-end developer based in ShenZhen, China!
       </div>
-
+      <div>
+        <ClientOnly placeholder="loading..."
+          ><CarBox class="car-box"></CarBox
+        ></ClientOnly>
+      </div>
       <div class="profile">
         <div class="profile-content">
           <h1>Guang</h1>

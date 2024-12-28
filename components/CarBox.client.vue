@@ -58,12 +58,12 @@ const pickupObjects = (event) => {
     const scH = container.clientHeight;
     const offsetLeft = container.offsetLeft;
     const offsetTop = container.offsetTop;
-
     let mouse = new THREE.Vector2();
     mouse.x = ((event.clientX - offsetLeft) / scW) * 2 - 1;
     mouse.y = -((event.clientY - offsetTop) / scH) * 2 + 1;
     let raycaster = new THREE.Raycaster();
     raycaster.setFromCamera(mouse, camera);
+    console.log("mouse:", mouse);
 
     let intersects = raycaster.intersectObjects(scene.children);
     if (intersects.length > 0) {
@@ -78,13 +78,61 @@ const pickupObjects = (event) => {
         }
       }
       if (intersects[0].object.name.includes("INT")) {
-        controls.autoRotate = false;
         let INT = models.find((item) => item.name === "INT");
         setupTweenCarIn(INT);
       }
     }
   }
 };
+// const pickupObjects = (event) => {
+//   const container = refContainer.value;
+//   if (container) {
+//     const scW = container.clientWidth;
+//     const scH = container.clientHeight;
+//     const offsetLeft = container.offsetLeft;
+//     const offsetTop = container.offsetTop;
+//     let mouse = new THREE.Vector2();
+//     mouse.x = ((event.clientX - offsetLeft) / scW) * 2 - 1;
+//     mouse.y = -((event.clientY - offsetTop) / scH) * 2 + 1;
+//     let raycaster = new THREE.Raycaster();
+//     raycaster.setFromCamera(mouse, camera);
+
+//     let intersects = raycaster.intersectObjects(scene.children);
+//     console.log("pickupObjects", intersects);
+//     if (intersects.length > 0) {
+//       console.log("Clicked object:", intersects[0].object.name);
+
+//       if (
+//         intersects[0].object.name.includes("Door") ||
+//         intersects[0].object.name.includes("Trunk")
+//       ) {
+//         let doorName = intersects[0].object.name.split("_")[0];
+//         let door = models.find((item) => item.name === doorName);
+//         if (door) {
+//           console.log("Door found:", door);
+//           if (door.outer && door.status) {
+//             console.log("Animating door:", door.name, "to", door.status);
+//             setupTweenDoor(door, door.status);
+//           } else {
+//             console.error("Door missing 'outer' or 'status'");
+//           }
+//         } else {
+//           console.error("Door not found in models");
+//         }
+//       }
+
+//       if (intersects[0].object.name.includes("INT")) {
+//         let INT = models.find((item) => item.name === "INT");
+//         if (INT) {
+//           console.log("Animating car interior:", INT.name);
+//           setupTweenCarIn(INT);
+//         } else {
+//           console.error("Interior model not found");
+//         }
+//       }
+//     }
+//   }
+// };
 
 const setupTweenDoor = (door, status) => {
   const { from, to } = door.rotateDirection[status];
@@ -240,6 +288,7 @@ watch(
   () => loading.value,
   (newVal) => {
     if (!newVal) {
+      console.log("Model loaded");
       // Once the model is loaded, start handling window resizing and clicks
       window.addEventListener("resize", handleWindowResize);
       window.addEventListener("click", pickupObjects);
